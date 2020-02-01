@@ -2,6 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import { Link, BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
+import Login from "./components/Login"
+import { Helmet } from "react-helmet";
+import Navbar from "./components/Navbar"
 
 function App() {
   return (
@@ -12,11 +15,12 @@ function App() {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Helmet>
+      <Navbar></Navbar>
       <Router className="App">
         <Link to="/login">Go to login</Link>
         <Switch>
           <Route path="/login">
-            <div>Login route</div>
+            <Login />
           </Route>
           <Route path="/job">
             <div>job route</div>
