@@ -5,11 +5,17 @@ import './App.css';
 import Login from "./components/Login"
 import { Helmet } from "react-helmet";
 import Navbar from "./components/Navbar"
-
+import { authRef, dbRef } from "./components/Firebase"
 function App() {
+  let isLoggedIn = false;
   function checkIfLogged() {
-    
+    if(authRef.currentUser !== null) {
+      isLoggedIn = true;
+    }
+
+    checkIfLogged()
   }
+
   return (
     <div>
       <Helmet>
@@ -18,7 +24,7 @@ function App() {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Helmet>
-      <Navbar isLoggedIn = {false}></Navbar>
+      <Navbar isLoggedIn = {isLoggedIn}></Navbar>
       <Router className="App">
         <Switch>
           <Route path="/login">
