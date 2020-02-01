@@ -15,9 +15,8 @@ function App() {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Helmet>
-      <Navbar></Navbar>
+      <Navbar loggedIn = {true}></Navbar>
       <Router className="App">
-        <Link to="/login">Go to login</Link>
         <Switch>
           <Route path="/login">
             <Login />

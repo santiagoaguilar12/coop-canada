@@ -118,6 +118,7 @@ export default function Navbar() {
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );
+    const isLoggedIn = true
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
@@ -190,6 +191,11 @@ export default function Navbar() {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
+                       
+                        
+                       
+                       {isLoggedIn &&
+                        <>
                         <IconButton aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <MailIcon />
@@ -210,6 +216,8 @@ export default function Navbar() {
                         >
                             <AccountCircle />
                         </IconButton>
+                        </>
+                        }
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton
