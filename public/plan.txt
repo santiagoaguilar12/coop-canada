@@ -1,0 +1,49 @@
+Components:
+    Dashboard
+        Navbar
+        JobList
+        JobFilter
+        Footer
+    
+    JobList
+        Job (map)
+        ApplyConfirmationModal
+
+    Profile
+
+
+//Job Schema
+{
+    "jobName": "NAME",
+    "targetedProgram": "Software Engineering",
+    "location": "Toronto",
+    "requiredSkills": [""],
+    "wagePerHour": double,
+    "jobSummary": string,
+    "applicationDeadline": Date,
+    "numberOfApplicants": integer,
+    "interviews": [Array of Interview Objects],
+    "id": ID
+}
+
+//Interview Schema
+{
+    "interviewer": Name Of Interviewer,
+    "interviewee": Name of Interviewee,
+    "location": Location,
+    "time": Date,
+    "id": ID
+}
+
+//Student Schema
+{
+    "firstName": first,
+    "lastName": last,
+    "school": name of schoool,
+    "program": program name,
+    "transcript": linke to stored pdf,
+    "interviews": list of lionked interviews,
+    "id" : ID,
+    "resume": link to stored resume
+}
+                    
