@@ -163,6 +163,7 @@ export default function Navbar(props) {
 
     return (
         <div className={classes.grow}>
+            {props.isLoggedIn &&
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -194,7 +195,7 @@ export default function Navbar(props) {
                        
                         
                        
-                       {props.isLoggedIn &&
+                     
                         <>
                         <IconButton aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="secondary">
@@ -217,7 +218,7 @@ export default function Navbar(props) {
                             <AccountCircle />
                         </IconButton>
                         </>
-                        }
+                    //    }
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton
@@ -232,8 +233,10 @@ export default function Navbar(props) {
                     </div>
                 </Toolbar>
             </AppBar>
+            }
             {renderMobileMenu}
             {renderMenu}
-        </div>
+            </div>
+        
     );
 }
