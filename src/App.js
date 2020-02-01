@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import { Link, BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
 import Login from "./components/Login"
+import Profile from "./components/Profile"
 import { Helmet } from "react-helmet";
 import Navbar from "./components/Navbar"
 
@@ -26,7 +27,7 @@ function App() {
             <div>job route</div>
           </Route>
           <Route path="/profile">
-            <div>profile route</div>
+            <Profile />
           </Route>
           <Route path="/">
             <div>any other route route</div>
