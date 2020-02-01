@@ -7,16 +7,26 @@ import Profile from "./components/Profile"
 import { Helmet } from "react-helmet";
 import Navbar from "./components/Navbar"
 import { authRef, dbRef } from "./components/Firebase"
+import { useState, useEffect } from 'react';
 function App() {
-  let isLoggedIn = false;
-  function checkIfLogged() {
-    if(authRef.currentUser !== null) {
-      isLoggedIn = true;
-    }
-
+  
+  
+  const [isLoggedIn, setIfLoggedIn] = useState(false);
+  useEffect(() => {
+  authRef.signInWithEmailAndPassword('test@gmail.com','test123').then((result => {
     checkIfLogged()
+      }))
+    
+  },[]);
+  const checkIfLogged = async () => {
+    if(await authRef.currentUser !== null) {
+       console.log("hi")
+       
+       setIfLoggedIn(true) ;
+    } else {
+      setIfLoggedIn(false);
+    }
   }
-
   return (
     <div>
       <Helmet>
