@@ -78,7 +78,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -118,7 +118,7 @@ export default function Navbar() {
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );
-    const isLoggedIn = true
+    
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
@@ -194,7 +194,7 @@ export default function Navbar() {
                        
                         
                        
-                       {isLoggedIn &&
+                       {props.isLoggedIn &&
                         <>
                         <IconButton aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="secondary">

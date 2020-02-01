@@ -7,6 +7,9 @@ import { Helmet } from "react-helmet";
 import Navbar from "./components/Navbar"
 
 function App() {
+  function checkIfLogged() {
+    
+  }
   return (
     <div>
       <Helmet>
@@ -15,7 +18,7 @@ function App() {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Helmet>
-      <Navbar loggedIn = {true}></Navbar>
+      <Navbar isLoggedIn = {false}></Navbar>
       <Router className="App">
         <Switch>
           <Route path="/login">
