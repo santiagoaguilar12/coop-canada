@@ -45,7 +45,6 @@ export class Profile extends Component {
 
 
     async componentDidMount() {
-        const login = await authRef.signInWithEmailAndPassword("test@gmail","test123")
         const email = await authRef.currentUser.email
         const doc = await dbRef.collection("users").doc(email).get()
         const userData = doc.data();
