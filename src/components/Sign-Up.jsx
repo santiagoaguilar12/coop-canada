@@ -72,7 +72,7 @@ export default function SignUp(props) {
                 university: values.university,
                 program: values.program
             })
-    history.push('/job')
+    history.push('/jobs')
   }
   const [values, setValues] = React.useState({
     email: '',

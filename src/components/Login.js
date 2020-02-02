@@ -77,7 +77,8 @@ export default function Login(props) {
     console.log(values)
     authRef.signInWithEmailAndPassword(email, password).then((result) => {
       console.log(result)
-      history.push("/profile");
+      history.push("/jobs");
+
     })
   }
   const handleChangeForm = name => event => {
@@ -92,9 +93,11 @@ export default function Login(props) {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
+          <Link to="/jobs" className="link-color">
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+          </Link>
           <form className={classes.form} noValidate>
             <TextField
               variant="outlined"
