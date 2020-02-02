@@ -56,16 +56,14 @@ export class Profile extends Component {
             const randomName = application.data()
             userData.applications.push(randomName);
         }
-        const resumeLink = await storageRef.ref(`resumes/${email}.pdf`).getDownloadURL()
-        const transcriptLink = await storageRef.ref(`transcripts/${email}.pdf`).getDownloadURL()
+        // const resumeLink = await storageRef.ref(`resumes/${email}.pdf`).getDownloadURL()
+        // const transcriptLink = await storageRef.ref(`transcripts/${email}.pdf`).getDownloadURL()
         this.setState({
             applications: userData.applications,
             firstName: userData.firstName,
             lastName: userData.lastName,
             university: userData.university,
             program: userData.program,
-            resumeLink: resumeLink,
-            transcriptLink: transcriptLink,
             email: email
         });
     }
