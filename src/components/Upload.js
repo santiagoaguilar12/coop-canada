@@ -32,12 +32,12 @@ class Upload extends Component {
                 <form>
                     {this.state.isUploading && <p>Progress: {this.state.progress}</p>}
                     <label style={{ backgroundColor: 'steelblue', color: 'white', padding: 10, borderRadius: 4, cursor: 'pointer' }}>
-                        Resume
+                        {this.props.label}
                         <FileUploader
                             accept="application/pdf"
                             hidden
                             filename={this.props.email}
-                            storageRef={firebase.storage().ref(`/resumes`)}
+                            storageRef={firebase.storage().ref(`/${this.props.imagePath}`)}
                             onUploadStart={this.handleUploadStart}
                             onUploadError={this.handleUploadError}
                             onUploadSuccess={this.handleUploadSuccess}
