@@ -6,6 +6,7 @@ import "./App.css";
 import Login from "./components/Login";
 import { Helmet } from "react-helmet";
 import Navbar from "./components/Navbar";
+import Profile from "./components/Profile"
 import Jobs from "./components/Jobs";
 import JobDetail from "./components/JobDetail";
 import { authRef } from "./components/Firebase"
