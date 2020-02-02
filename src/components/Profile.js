@@ -15,6 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import { dbRef, authRef } from './Firebase'
 export class Profile extends Component {
+    
     static defaultProps = {
         firstName: "John",
         lastName: "Doe",
@@ -48,6 +49,7 @@ export class Profile extends Component {
             isProgramEditing: false,
             program: this.props.program
         };
+        props.notOnLoginPage()
     }
 
     handleProgramChange(e) {

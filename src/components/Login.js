@@ -12,6 +12,9 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { authRef } from "./Firebase"
+import { useHistory } from "react-router-dom";
+import { useState, useEffect } from 'react';
 
 
 function Copyright() {
@@ -60,59 +63,74 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default class SignInSide extends Component() {
-  static classes = useStyles();
-  constructor(props) {
-    super(props);
+export default function Login(props) {
+  const classes = useStyles();
+  props.toggleOnLoginPage()
+  const history = useHistory()
+  const [values, setValues] = React.useState({
+    email: '',
+    password: ''
+  });
+  const loginWithEmailAndPassword = () => {
+    const email = values.email;
+    const password = values.password
+    console.log(values)
+    authRef.signInWithEmailAndPassword(email, password).then((result) => {
+      console.log(result)
+      history.push("/profile");
+    })
   }
-
-  render() {
-    return (
-      <Grid container component="main" className={classes.root} >
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
+  const handleChangeForm = name => event => {
+    setValues({ ...values, [name]: event.target.value });
+  }
+  return (
+    <Grid container component="main" className={classes.root}>
+      <CssBaseline />
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
           </Typography>
-            <form className={classes.form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                className={classes.submit}
-              >
-                Sign In
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              onChange={handleChangeForm("email")}
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              onChange={handleChangeForm("password")}
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={loginWithEmailAndPassword}
+              className={classes.submit}
+            >
+              Sign In
             </Button>
               <Grid container>
                 <Grid item xs>
