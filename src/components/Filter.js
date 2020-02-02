@@ -41,6 +41,7 @@ export class Filter extends Component {
               value={this.props.filters.duration}
               onChange={this.props.handleDurationChange}
             >
+              <MenuItem value={0}>Any</MenuItem>
               <MenuItem value={4}>4 months</MenuItem>
               <MenuItem value={8}>8 months</MenuItem>
               <MenuItem value={12}>12 months</MenuItem>
@@ -49,7 +50,7 @@ export class Filter extends Component {
             <TextField
               id="job-field"
               label="Job Keyword"
-              value={this.props.filters.job}
+              value={this.props.filters.jobKeyword}
               onChange={this.props.handleKeywordChange}
             />
 
@@ -72,10 +73,10 @@ export class Filter extends Component {
               onChange={this.props.handleWageMinChange}
             />
             <TextField
-              id="program-field"
-              label="Program"
-              value={this.props.filters.program}
-              onChange={this.props.handleProgramChange}
+              id="company-field"
+              label="Company"
+              value={this.props.filters.company}
+              onChange={this.props.handleCompanyChange}
             />
           </FormControl>
         </CardContent>

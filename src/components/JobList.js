@@ -32,7 +32,7 @@ export class JobList extends Component {
               <TableCell align="right">Company</TableCell>
               <TableCell align="right">Id</TableCell>
               <TableCell align="right">Location</TableCell>
-              <TableCell align="right">App application Deadline</TableCell>
+              <TableCell align="right">App Deadline</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
