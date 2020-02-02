@@ -12,59 +12,63 @@ import WorkIcon from '@material-ui/icons/Work';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import { dbRef, authRef } from './Firebase'
-import firebase from "firebase";
 import Upload from "./Upload";
 
 export class Profile extends Component {
-
-    static defaultProps = {
-        firstName: "John",
-        lastName: "Doe",
-        school: "MAC University",
-        program: "Computer Engineering",
-        transcript: "transcript pdf...",
-        email: "bobsmith@gmail.com",
-        interviews: [
-            {
-                id: 0,
-                time: Date.now,
-                company: "Shopify"
-            }, {
-                id: 1,
-                time: Date.now,
-                company: "BlackBerry"
-            }, {
-                id: 2,
-                time: Date.now,
-                company: "Air Transat"
-            }
-        ],
-        id: "3819353",
-        resume: "resume pdf..."
-    };
     constructor(props) {
         super(props);
         this.handleProgramChange = this.handleProgramChange.bind(this);
         this.handleProgramEdit = this.handleProgramEdit.bind(this);
         this.handleProgramEditEnter = this.handleProgramEditEnter.bind(this);
         this.checkIfEditing = this.checkIfEditing.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
         this.state = {
             isProgramEditing: false,
-            program: this.props.program
-        };
-        props.setIsOn()
+            program: "",
+            applications: [],
+            firstName: "",
+            lastName: "",
+            university: ""
+        }
+    };
+    /*
+    PROPS I GET
+    - Campony
+    - Job Title
+    - Application Status
+    - Application ID
+    */
+
+
+    async componentDidMount(e) {
+        const test = await authRef.signInWithEmailAndPassword('cookesdummy@gmail.com', 'password')
+        const email = await authRef.currentUser.email
+        console.log(email)
+        const doc = await dbRef.collection("users").doc(email).get()
+        const userData = doc.data();
+        userData.applications = [];
+
+        userData.applicationKeys.forEach(async (key) => {
+            const application = await dbRef.collection("jobs").doc(key).get()
+            const randomName = application.data()
+
+            userData.applications.push(randomName);
+        });
+
+        this.setState({
+            applications: userData.applications,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            university: userData.university,
+            program: userData.program
+        });
     }
+
     async checkIfEditing() {
-        console.log(authRef.currentUser.email);
         if (!this.state.isProgramEditing) {
-            var test = await dbRef.collection('users').doc(authRef.currentUser.email).set({
-                email: this.props.email,
-                firstName: this.props.firstName,
-                lastName: this.props.lastName,
-                program: this.state.program,
-                university: this.props.school
-            });
-            console.log(test);
+            let test = await dbRef.collection('users').doc(authRef.currentUser.email).set(
+                { program: this.state.program, }, { merge: true }
+            );
         }
     }
     handleProgramChange(e) {
@@ -90,42 +94,37 @@ export class Profile extends Component {
             </div>
         } else {
             programDisplay = <div>
-                <div>{this.state.program} - <span>{this.props.school}</span></div>
+                <div>{this.state.program} - <span>{this.state.university}</span></div>
                 <EditIcon onClick={this.handleProgramEdit} />
             </div>
         }
-
+        console.log(this.state.applications);
         return (
             <Container maxWidth="md">
                 <div className="Profile-Header">
-                    <h1>{this.props.firstName} {this.props.lastName}</h1>
+                    <h1>{this.state.firstName} {this.state.lastName}</h1>
                     {programDisplay}
                 </div>
                 <Grid spacing={3}>
                     <Grid className="Profile-InterviewList" xs={8}>
-                        <h3>Your Interviews</h3>
-                        {//map a list of interviews
-                        }
+                        <h3>Your Applications</h3>
                         <List>
-                            {this.props.interviews.map(interview =>
-                                <div>
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                            <Avatar>
-                                                <ImageIcon />
-                                            </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText primary={interview.company} secondary="February 17th" />
-                                    </ListItem>
-                                    <Divider />
-                                </div>)
+                            {this.state.applications.map(application => (<div>
+                                <ListItem>
+                                    <ListItemAvatar>
+                                        <Avatar>
+                                            <ImageIcon />
+                                        </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText primary={application.company + "  -  " + application.jobName} secondary={application.location} />
+                                </ListItem>
+                                <Divider />
+                            </div>))
                             }
                         </List>
                     </Grid>
                     <Grid className="Profile-Upload" xs={4}>
                         <h3>Your Uploads</h3>
-                        {//Display resume and transcript upload options with when it was uploaded
-                        }
                         <List>
                             <ListItem>
                                 <ListItemAvatar>
@@ -133,7 +132,7 @@ export class Profile extends Component {
                                         <ImageIcon />
                                     </Avatar>
                                 </ListItemAvatar>
-                                <ListItemText primary="Resume" secondary='${Date.now}' />
+                                <ListItemText primary="Resume" secondary='Name of File - Date Submitted' />
                                 <Upload filePath="resumes" label="Resume" />
                             </ListItem>
                             <ListItem>
@@ -142,7 +141,7 @@ export class Profile extends Component {
                                         <WorkIcon />
                                     </Avatar>
                                 </ListItemAvatar>
-                                <ListItemText primary="Transcript" secondary='${Date.now}' />
+                                <ListItemText primary="Transcript" secondary='Name of File - Date Submitted' />
                                 <Upload filePath="transcripts" label="Transcript" />
                             </ListItem>
                         </List>
