@@ -22,19 +22,23 @@ function confirmApply() {
   console.log("applied");
 }
 export class JobDetail extends Component {
-  //   constructor(props) {
-  //     super(props);
-  //   }
+  constructor(props) {
+    super(props);
+    console.log(props);
+    // console.log(this.props);
+  }
 
   render() {
+    console.log(this.props);
+    console.log(this.props.location);
     // console.log(job);
     return (
       <Container maxWidth="md">
-        <Button onClick={confirmApply} variant="contained" color="primary">
-          Apply
-        </Button>
         <Card>
           <CardContent>
+            <Button onClick={confirmApply} variant="contained" color="primary">
+              Apply
+            </Button>
             <div>
               <strong>Job Name: </strong>
               {job.jobName}
