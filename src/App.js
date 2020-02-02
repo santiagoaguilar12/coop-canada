@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
 import Jobs from "./components/Jobs";
 import JobDetail from "./components/JobDetail";
+import PleaseLogin from "./components/PleaseLogin"
 import { authRef } from "./components/Firebase";
 import { useState, useEffect } from "react";
 import SignUp from "./components/Sign-Up";
@@ -58,7 +59,7 @@ function App() {
             <SignUp onLoginPage={onLoginPage} />
           </Route>
           <Route path="/">
-            <div>any other route route</div>
+            <PleaseLogin></PleaseLogin>
           </Route>
         </Switch>
       </Router>

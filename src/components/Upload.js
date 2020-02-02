@@ -4,10 +4,6 @@ import FileUploader from "react-firebase-file-uploader";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 class Upload extends Component {
-    static defaultProps = {
-        email: "PLACEHOLDER_EMAIL",
-        label: "Label_Prop"
-    }
     state = {
         avatar: "",
         isUploading: false,
@@ -20,6 +16,7 @@ class Upload extends Component {
         console.error(error);
     };
     handleUploadSuccess = filename => {
+        alert("The document was uploaded succesfully!")
         console.log("Success");
 
     };

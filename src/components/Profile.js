@@ -11,7 +11,8 @@ import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
-import { dbRef, authRef } from './Firebase'
+import Link from '@material-ui/core/Link';
+import { dbRef, authRef, storageRef } from './Firebase'
 import Upload from "./Upload";
 
 export class Profile extends Component {
@@ -24,11 +25,14 @@ export class Profile extends Component {
         this.componentDidMount = this.componentDidMount.bind(this);
         this.state = {
             isProgramEditing: false,
+            email: "",
             program: "",
             applications: [],
             firstName: "",
             lastName: "",
-            university: ""
+            university: "",
+            resumeLink: "",
+            transcriptLink: ""
         }
     };
     /*
@@ -41,6 +45,7 @@ export class Profile extends Component {
 
 
     async componentDidMount() {
+        const login = await authRef.signInWithEmailAndPassword("test@gmail","test123")
         const email = await authRef.currentUser.email
         const doc = await dbRef.collection("users").doc(email).get()
         const userData = doc.data();
@@ -52,13 +57,17 @@ export class Profile extends Component {
             const randomName = application.data()
             userData.applications.push(randomName);
         }
-
+        const resumeLink = await storageRef.ref(`resumes/${email}.pdf`).getDownloadURL()
+        const transcriptLink = await storageRef.ref(`transcripts/${email}.pdf`).getDownloadURL()
         this.setState({
             applications: userData.applications,
             firstName: userData.firstName,
             lastName: userData.lastName,
             university: userData.university,
-            program: userData.program
+            program: userData.program,
+            resumeLink: resumeLink,
+            transcriptLink: transcriptLink,
+            email: email
         });
     }
 
@@ -121,7 +130,7 @@ export class Profile extends Component {
                             }
                         </List>
                     </Grid>
-                    <Grid className="Profile-Upload" xs={6}>
+                    <Grid className="Profile-Upload" xs={9}>
                         <h3>Your Uploads</h3>
                         <List>
                             <ListItem>
@@ -130,8 +139,14 @@ export class Profile extends Component {
                                         <ImageIcon />
                                     </Avatar>
                                 </ListItemAvatar>
-                                <ListItemText primary="Resume" secondary='Name of File - Date Submitted' />
-                                <Upload filePath="resumes" label="Resume" />
+                                <ListItemText primary="Resume"/>
+                                {this.state.resumeLink ? (
+                                    <Link className="margin-r">Current Resume</Link>
+                                ) : (
+                                    <div className="margin-r">Please Upload A Resume</div>
+                                )
+                                } 
+                                <Upload filePath="resumes" label="Resume" email={this.state.email} />
                             </ListItem>
                             <ListItem>
                                 <ListItemAvatar>
@@ -139,8 +154,14 @@ export class Profile extends Component {
                                         <WorkIcon />
                                     </Avatar>
                                 </ListItemAvatar>
-                                <ListItemText primary="Transcript" secondary='Name of File - Date Submitted' />
-                                <Upload filePath="transcripts" label="Transcript" />
+                                <ListItemText primary="Transcript"/>
+                                {this.state.transcriptLink ? ( 
+                                <Link className="margin-r">Current Transcript</Link>
+                                ) : (
+                                    <div className="margin-r">Please Upload A Transcript</div>
+                                )
+                                }
+                                <Upload filePath="transcripts" label="Transcript" email={this.state.email} />
                             </ListItem>
                         </List>
                     </Grid>

@@ -80,7 +80,7 @@ export default function SignUp(props) {
         program: values.program,
         applicationKeys: []
       });
-    history.push("/jobs");
+    history.push("/profile");
   };
   const [values, setValues] = React.useState({
     email: "",
