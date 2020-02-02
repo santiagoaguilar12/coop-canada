@@ -5,17 +5,14 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 class Upload extends Component {
     static defaultProps = {
-        email: "test@gmail.com"
+        email: "PLACEHOLDER_EMAIL",
+        label: "Label_Prop"
     }
     state = {
         avatar: "",
         isUploading: false,
         progress: 0,
     };
-    handleUploadStart = (file) => {
-
-    }
-    // handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
     handleProgress = progress => this.setState({ progress });
     handleUploadError = error => {
         this.setState({ isUploading: false });
@@ -37,8 +34,7 @@ class Upload extends Component {
                             accept="application/pdf"
                             hidden
                             filename={this.props.email}
-                            storageRef={firebase.storage().ref(`/${this.props.imagePath}`)}
-                            onUploadStart={this.handleUploadStart}
+                            storageRef={firebase.storage().ref(`/${this.props.filePath}`)}
                             onUploadError={this.handleUploadError}
                             onUploadSuccess={this.handleUploadSuccess}
                             onProgress={this.handleProgress}
