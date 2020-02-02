@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet";
 import Navbar from "./components/Navbar"
 import { authRef } from "./components/Firebase"
 import { useState, useEffect } from 'react';
+import SignUp from './components/Sign-Up';
 function App() {
   
   const [isLoggedIn, setIfLoggedIn] = useState(false);
@@ -55,7 +56,10 @@ function App() {
           <Route path="/profile">
             <Profile firstName="Adam" lastName="Cooke" notOnLoginPage= {notOnLoginPage} />
           </Route>
-          <Route path="/">
+          <Route path="/signup">
+            <SignUp onLoginPage = {onLoginPage}/>
+          </Route>
+          <Route path="/" >
             <div>any other route route</div>
           </Route>
         </Switch>

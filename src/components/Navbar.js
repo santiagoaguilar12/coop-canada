@@ -56,6 +56,9 @@ const useStyles = makeStyles(theme => ({
     inputRoot: {
         color: 'inherit',
     },
+    Navbar: {
+        backgroundColor: "#598B2C"
+    },
     inputInput: {
         padding: theme.spacing(1, 1, 1, 7),
         transition: theme.transitions.create('width'),
@@ -79,7 +82,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Navbar(props) {
-    console.log(props)
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -165,7 +167,7 @@ export default function Navbar(props) {
     return (
         <div className={classes.grow}>
            {!props.isOnLoginPage &&
-            <AppBar position="static">
+            <AppBar position="static" className={classes.Navbar}>
                 <Toolbar>
                     <IconButton
                         edge="start"
