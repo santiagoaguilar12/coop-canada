@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: "green" //theme.palette.secondary.main,
+    backgroundColor: "#598B2C"
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -59,8 +59,8 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
     color: "white",
-    backgroundColor: "green"
-  },
+    backgroundColor: "#598B2C"
+  }
 }));
 
 export default function Login(props) {
@@ -120,6 +120,7 @@ export default function Login(props) {
               onChange={handleChangeForm("password")}
               autoComplete="current-password"
             />
+            
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
