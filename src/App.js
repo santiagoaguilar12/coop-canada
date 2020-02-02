@@ -10,7 +10,6 @@ import { authRef } from "./components/Firebase"
 import { useState, useEffect } from 'react';
 function App() {
   
-  
   const [isLoggedIn, setIfLoggedIn] = useState(false);
   const [isOnLoginPage, setIsOnLoginPage] = useState(false);
   useEffect(() => {
@@ -44,6 +43,7 @@ function App() {
       {!isOnLoginPage &&
         <Navbar isLoggedIn = {isLoggedIn} isOnLoginPage = {isOnLoginPage}></Navbar>
       }
+
       <Router className="App">
         <Switch>
           <Route path="/login" >
@@ -53,7 +53,7 @@ function App() {
             <div>job route</div>
           </Route>
           <Route path="/profile">
-            <Profile notOnLoginPage= {notOnLoginPage} />
+            <Profile firstName="Adam" lastName="Cooke" notOnLoginPage= {notOnLoginPage} />
           </Route>
           <Route path="/">
             <div>any other route route</div>
