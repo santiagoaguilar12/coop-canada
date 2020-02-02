@@ -14,8 +14,12 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import { dbRef, authRef } from './Firebase'
+import firebase from "firebase";
+import FileUploader from "react-firebase-file-uploader";
+import Upload from "./Upload";
+
 export class Profile extends Component {
-    
+
     static defaultProps = {
         firstName: "John",
         lastName: "Doe",
@@ -87,7 +91,7 @@ export class Profile extends Component {
                     {programDisplay}
                 </div>
                 <Grid spacing={3}>
-                    <Grid className="Profile-InterviewList" xs={9}>
+                    <Grid className="Profile-InterviewList" xs={8}>
                         <h3>Your Interviews</h3>
                         {//map a list of interviews
                         }
@@ -107,7 +111,7 @@ export class Profile extends Component {
                             }
                         </List>
                     </Grid>
-                    <Grid className="Profile-Upload" xs={3}>
+                    <Grid className="Profile-Upload" xs={4}>
                         <h3>Your Uploads</h3>
                         {//Display resume and transcript upload options with when it was uploaded
                         }
@@ -119,7 +123,7 @@ export class Profile extends Component {
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText primary="Resume" secondary='${Date.now}' />
-                                <CloudUploadIcon />
+                                <Upload filePath="resumes" label="Resume" />
                             </ListItem>
                             <ListItem>
                                 <ListItemAvatar>
@@ -128,7 +132,7 @@ export class Profile extends Component {
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText primary="Transcript" secondary='${Date.now}' />
-                                <CloudUploadIcon />
+                                <Upload filePath="transcripts" label="Transcript" />
                             </ListItem>
                         </List>
                     </Grid>
