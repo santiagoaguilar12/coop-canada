@@ -16,12 +16,12 @@ function App() {
   
   const [isLoggedIn, setIfLoggedIn] = useState(false);
   const [isOnLoginPage, setIsOnLoginPage] = useState(false);
-  useEffect(() => {
-  authRef.signInWithEmailAndPassword('test@gmail.com','test123').then((result => {
-    checkIfLogged()
-      }))
+  // useEffect(() => {
+  // authRef.signInWithEmailAndPassword('test@gmail.com','test123').then((result => {
+  //   checkIfLogged()
+  //     }))
     
-  },[]);
+  // },[]);
   const onLoginPage = () => {
     setIsOnLoginPage(true)
   }
@@ -55,7 +55,7 @@ function App() {
             <Login onLoginPage = {onLoginPage} />
           </Route>
           <Route path="/jobs">
-            <Jobs />
+            <Jobs  notOnLoginPage= {notOnLoginPage} />
           </Route>
           <Route path="/job">
             <JobDetail />

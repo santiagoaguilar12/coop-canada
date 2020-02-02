@@ -81,7 +81,7 @@ export class Jobs extends Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleCompanyChange = this.handleCompanyChange.bind(this);
     this.handleKeywordChange = this.handleKeywordChange.bind(this);
-
+    props.notOnLoginPage()
     this.state = {
       filters: {
         duration: 0,
