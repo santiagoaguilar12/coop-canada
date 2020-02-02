@@ -12,6 +12,7 @@ import { authRef } from "./components/Firebase";
 import { useState, useEffect } from "react";
 import SignUp from "./components/Sign-Up";
 function App() {
+
   const [isLoggedIn, setIfLoggedIn] = useState(false);
   const [isOnLoginPage, setIsOnLoginPage] = useState(false);
   useEffect(async () => {
@@ -30,7 +31,6 @@ function App() {
   const notOnLoginPage = () => {
     setIsOnLoginPage(false)
   }
-  
   return (
     <div>
       <Helmet>
@@ -39,6 +39,7 @@ function App() {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Helmet>
+
 
       <Router className="App">
         {!isOnLoginPage && (
