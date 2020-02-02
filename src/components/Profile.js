@@ -14,8 +14,12 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import { dbRef, authRef } from './Firebase'
+import firebase from "firebase";
+import FileUploader from "react-firebase-file-uploader";
+import Upload from "./Upload";
+
 export class Profile extends Component {
-    
+
     static defaultProps = {
         firstName: "John",
         lastName: "Doe",
@@ -82,6 +86,7 @@ export class Profile extends Component {
 
         return (
             <Container maxWidth="md">
+                <Upload />
                 <div className="Profile-Header">
                     <h1>{this.props.firstName} {this.props.lastName}</h1>
                     {programDisplay}
