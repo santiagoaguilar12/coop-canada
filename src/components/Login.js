@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Login(props) {
   const classes = useStyles();
-  props.toggleOnLoginPage()
+  props.onLoginPage()
   const history = useHistory()
   const [values, setValues] = React.useState({
     email: '',
@@ -153,4 +153,3 @@ export default function Login(props) {
       </Grid>
     );
   }
-}
