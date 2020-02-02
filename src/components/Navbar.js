@@ -192,7 +192,6 @@ export default function Navbar(props) {
                     aria-label="show 4 new mails"
                     color="inherit"
                   ></IconButton>
-
                   <Link to="/profile" className="link-color">
                     <IconButton
                       edge="end"
