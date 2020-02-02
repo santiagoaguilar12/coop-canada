@@ -44,11 +44,12 @@ function App() {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Helmet>
+     
+
+      <Router className="App">
       {!isOnLoginPage &&
         <Navbar isLoggedIn = {isLoggedIn} isOnLoginPage = {isOnLoginPage}></Navbar>
       }
-
-      <Router className="App">
         <Switch>
           <Route path="/login" >
             <Login onLoginPage = {onLoginPage} />
