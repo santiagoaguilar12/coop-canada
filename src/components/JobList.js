@@ -9,6 +9,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   table: {
@@ -20,7 +21,16 @@ export class JobList extends Component {
   // const classes = useStyles();
   constructor(props) {
     super(props);
+    this.goToDetail = this.goToDetail.bind(this);
   }
+
+  goToDetail() {
+    this.props.history.push({
+      pathname: "/job",
+      state: { test: true }
+    });
+  }
+  33;
 
   render() {
     return (
@@ -39,8 +49,11 @@ export class JobList extends Component {
             {this.props.jobs.map(row => (
               //   <Link>
               <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  <Link to={{ pathname: "/job", state: { test: true } }}>
+                <TableCell
+                  /*onClick={this.goToDetail}*/ component="th"
+                  scope="row"
+                >
+                  <Link to={{ pathname: "/job", state: { job: row } }}>
                     {row.jobName}
                   </Link>
                 </TableCell>
@@ -58,4 +71,4 @@ export class JobList extends Component {
   }
 }
 
-export default JobList;
+export default withRouter(JobList);

@@ -3,6 +3,7 @@ import Container from "@material-ui/core/Container";
 import { Card, CardContent } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
+import { withRouter } from "react-router-dom";
 
 const job = {
   jobName: "Software Developer",
@@ -22,47 +23,56 @@ function confirmApply() {
   console.log("applied");
 }
 export class JobDetail extends Component {
-  //   constructor(props) {
-  //     super(props);
-  //   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      job: this.props.location.state.job
+    };
+    // console.log(props);
+    // console.log(this.props);
+  }
 
   render() {
+    // console.log("this.props");
+    // console.log(this.props);
+    // console.log(this.props.location.state);
     // console.log(job);
+    console.log(this.state.job);
     return (
       <Container maxWidth="md">
-        <Button onClick={confirmApply} variant="contained" color="primary">
-          Apply
-        </Button>
         <Card>
           <CardContent>
+            <Button onClick={confirmApply} variant="contained" color="primary">
+              Apply
+            </Button>
             <div>
               <strong>Job Name: </strong>
-              {job.jobName}
+              {this.state.job.jobName}
             </div>
           </CardContent>
           <CardContent>
             <div>
               <strong>Company: </strong>
-              {job.company}
+              {this.state.job.company}
             </div>
           </CardContent>
           <CardContent>
             <div>
               <strong>Job Location: </strong>
-              {job.location}
+              {this.state.job.location}
             </div>
           </CardContent>
           <CardContent>
             <div>
               <strong>Application Deadline: </strong>
-              {job.applicationDeadline}
+              {this.state.job.applicationDeadline}
             </div>
           </CardContent>
 
           <CardContent>
             <div>
               <strong>Job Summary: </strong>
-              {job.jobSummary}
+              {this.state.job.jobSummary}
             </div>
           </CardContent>
         </Card>
@@ -71,7 +81,7 @@ export class JobDetail extends Component {
             <div>
               <strong>Job Summary: </strong>
             </div>
-            {job.requiredSkills.map(skill => {
+            {this.state.job.requiredSkills.map(skill => {
               // Return the element. Also pass key
               return <div> {skill} </div>;
             })}
@@ -82,4 +92,4 @@ export class JobDetail extends Component {
   }
 }
 
-export default JobDetail;
+export default withRouter(JobDetail);
