@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -10,12 +9,10 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import { dbRef, authRef } from './Firebase'
 import firebase from "firebase";
-import FileUploader from "react-firebase-file-uploader";
 import Upload from "./Upload";
 
 export class Profile extends Component {
@@ -23,9 +20,10 @@ export class Profile extends Component {
     static defaultProps = {
         firstName: "John",
         lastName: "Doe",
-        school: "Queen's University",
+        school: "MAC University",
         program: "Computer Engineering",
         transcript: "transcript pdf...",
+        email: "bobsmith@gmail.com",
         interviews: [
             {
                 id: 0,
@@ -49,23 +47,36 @@ export class Profile extends Component {
         this.handleProgramChange = this.handleProgramChange.bind(this);
         this.handleProgramEdit = this.handleProgramEdit.bind(this);
         this.handleProgramEditEnter = this.handleProgramEditEnter.bind(this);
+        this.checkIfEditing = this.checkIfEditing.bind(this);
         this.state = {
             isProgramEditing: false,
             program: this.props.program
         };
-        props.notOnLoginPage()
+        props.setIsOn()
     }
-
+    async checkIfEditing() {
+        console.log(authRef.currentUser.email);
+        if (!this.state.isProgramEditing) {
+            var test = await dbRef.collection('users').doc(authRef.currentUser.email).set({
+                email: this.props.email,
+                firstName: this.props.firstName,
+                lastName: this.props.lastName,
+                program: this.state.program,
+                university: this.props.school
+            });
+            console.log(test);
+        }
+    }
     handleProgramChange(e) {
         this.setState({ program: e.target.value })
     }
 
     handleProgramEdit(e) {
-        this.setState(st => ({ isProgramEditing: !st.isProgramEditing }));
+        this.setState(st => ({ isProgramEditing: !st.isProgramEditing }), () => { this.checkIfEditing() });
     }
     handleProgramEditEnter(e) {
         if (e.key === "Enter") {
-            this.setState(st => ({ isProgramEditing: !st.isProgramEditing }));
+            this.setState(st => ({ isProgramEditing: !st.isProgramEditing }), () => { this.checkIfEditing() });
         }
     }
 
