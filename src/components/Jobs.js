@@ -12,7 +12,8 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import JobList from "./JobList";
 import Filter from "./Filter";
-import * as keyword_extractor from 'keyword-extractor'
+import * as keyword_extractor from "keyword-extractor";
+import { dbRef, authRef } from "./Firebase";
 
 const jobs = [
   {
@@ -81,6 +82,7 @@ export class Jobs extends Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleCompanyChange = this.handleCompanyChange.bind(this);
     this.handleKeywordChange = this.handleKeywordChange.bind(this);
+    // this.snapshotToArray = this.snapshotToArray.bind(this);
 
     this.state = {
       filters: {
@@ -93,7 +95,29 @@ export class Jobs extends Component {
       },
       test: "words",
       filteredJobs: [],
+      allJobs: []
     };
+    this.filterTable();
+  }
+
+  // async componentDidMount() {
+  //   const jobs = await dbRef.collection("jobs").get();
+  //   this.setState({ allJobs: jobs });
+  // }
+  componentDidMount() {
+    dbRef
+      .collection("jobs")
+      .get()
+      .then(
+        function(querySnapshot) {
+          const testArray = [];
+          querySnapshot.forEach(doc => {
+            testArray.push(doc.data());
+          });
+          // console.log(testArray);
+          this.setState({ allJobs: testArray });
+        }.bind(this)
+      );
   }
 
   toggleTest(event) {
@@ -196,7 +220,7 @@ export class Jobs extends Component {
 
   filterTable() {
     this.setState({
-      filteredJobs: jobs.filter(job => {
+      filteredJobs: this.state.allJobs.filter(job => {
         // console.log(this.state.filters.company);
         this.checkCompany(job);
         return (
@@ -274,6 +298,7 @@ export class Jobs extends Component {
   }
 
   render() {
+    console.log(this.state.allJobs);
     return (
       <Grid container spacing={3}>
         <Grid item xs={3}>
@@ -292,7 +317,12 @@ export class Jobs extends Component {
         </Grid>
         <Grid item xs={9}>
           <JobList
-            jobs={this.state.filteredJobs || jobs}
+            jobs={
+              this.state.filteredJobs.length > 0
+                ? this.state.filteredJobs
+                : this.state.allJobs
+              // jobs
+            }
             test={this.state.test}
             filters={this.state.filters}
           />
