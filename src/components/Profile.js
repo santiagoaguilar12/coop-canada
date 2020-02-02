@@ -15,6 +15,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 
 export class Profile extends Component {
+    
     static defaultProps = {
         firstName: "John",
         lastName: "Doe",
@@ -41,6 +42,7 @@ export class Profile extends Component {
     };
     constructor(props) {
         super(props);
+        props.notOnLoginPage()
     }
     render() {
         return (

@@ -12,6 +12,9 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { authRef } from "./Firebase"
+import { useHistory } from "react-router-dom";
+import { useState, useEffect } from 'react';
 
 
 
@@ -61,9 +64,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignInSide() {
+export default function Login(props) {
   const classes = useStyles();
-
+  props.toggleOnLoginPage()
+  const history = useHistory()
+  const [values, setValues] = React.useState({
+    email: '',
+    password: ''
+  });
+  const loginWithEmailAndPassword = () => {
+    const email = values.email;
+    const password = values.password
+    console.log(values)
+    authRef.signInWithEmailAndPassword(email, password).then((result) => {
+      console.log(result)
+      history.push("/profile");
+    })
+  }
+  const handleChangeForm = name => event => {
+    setValues({ ...values, [name]: event.target.value });
+  }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -86,6 +106,7 @@ export default function SignInSide() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              onChange={handleChangeForm("email")}
               autoFocus
             />
             <TextField
@@ -97,6 +118,7 @@ export default function SignInSide() {
               label="Password"
               type="password"
               id="password"
+              onChange={handleChangeForm("password")}
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -104,9 +126,9 @@ export default function SignInSide() {
               label="Remember me"
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
+              onClick={loginWithEmailAndPassword}
               className={classes.submit}
             >
               Sign In
