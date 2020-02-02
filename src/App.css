@@ -40,3 +40,12 @@
 .link-color {
   color: white;
 }
+.background {
+  margin: 1.5rem !important;
+  background-color: #598B2C !important;
+  color: white !important;
+}
+
+.paper {
+  margin: 1.5rem !important;
+}

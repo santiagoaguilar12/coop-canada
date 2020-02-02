@@ -300,7 +300,8 @@ export class Jobs extends Component {
   render() {
     console.log(this.state.allJobs);
     return (
-      <Grid container spacing={3}>
+      <div className="paper">
+<Grid container spacing={3}>
         <Grid item xs={3}>
           <Filter
             toggleTest={this.toggleTest}
@@ -328,6 +329,7 @@ export class Jobs extends Component {
           />
         </Grid>
       </Grid>
+      </div>
     );
   }
 }

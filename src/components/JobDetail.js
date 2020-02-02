@@ -3,25 +3,24 @@ import Container from "@material-ui/core/Container";
 import { Card, CardContent } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
+import { dbRef, authRef } from "./Firebase"
 import { withRouter } from "react-router-dom";
+import * as firebase from 'firebase'
 
-const job = {
-  jobName: "Software Developer",
-  company: "Google",
-  targetedProgram: "Software Engineering",
-  location: "Waterloo",
-  requiredSkills: ["C++", "Java"],
-  wagePerHour: 25.0,
-  jobSummary:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  applicationDeadline: "02/01/2020",
-  interviews: [],
-  id: 123
-};
+let job = {};
 
-function confirmApply() {
-  console.log("applied");
+async function confirmApply() {
+  const userEmail = await authRef.currentUser.email;
+  const jobsSaveResult = await dbRef.collection("jobs").doc(job.id).set({
+    applicants: firebase.firestore.FieldValue.arrayUnion(userEmail)
+  }, {merge: true})
+  const userSaveResult = await dbRef.collection("users").doc(userEmail).set({
+    applicationKeys: firebase.firestore.FieldValue.arrayUnion(job.id)
+
+  }, {merge: true})
+  alert(`You have successfully applied to ${job.company} in ${job.location} `)
 }
+
 export class JobDetail extends Component {
   constructor(props) {
     super(props);
@@ -29,22 +28,14 @@ export class JobDetail extends Component {
       job: this.props.location.state.job
     };
     // console.log(props);
-    // console.log(this.props);
+    // console.log(this.props); 
   }
-
   render() {
-    // console.log("this.props");
-    // console.log(this.props);
-    // console.log(this.props.location.state);
-    // console.log(job);
-    console.log(this.state.job);
+    job = this.state.job
     return (
       <Container maxWidth="md">
-        <Card>
+        <Card className="paper">
           <CardContent>
-            <Button onClick={confirmApply} variant="contained" color="primary">
-              Apply
-            </Button>
             <div>
               <strong>Job Name: </strong>
               {this.state.job.jobName}
@@ -75,8 +66,6 @@ export class JobDetail extends Component {
               {this.state.job.jobSummary}
             </div>
           </CardContent>
-        </Card>
-        <Card>
           <CardContent>
             <div>
               <strong>Job Summary: </strong>
@@ -86,6 +75,9 @@ export class JobDetail extends Component {
               return <div> {skill} </div>;
             })}
           </CardContent>
+          <Button onClick={confirmApply} variant="contained" className="background">
+              Apply
+          </Button>
         </Card>
       </Container>
     );
