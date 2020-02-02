@@ -33,6 +33,7 @@ export class JobList extends Component {
   33;
 
   render() {
+    console.log(this.props.jobs);
     return (
       <TableContainer component={Paper}>
         <Table /*className={classes.table}*/ aria-label="simple table">
@@ -40,8 +41,9 @@ export class JobList extends Component {
             <TableRow>
               <TableCell> Job Title</TableCell>
               <TableCell align="right">Company</TableCell>
-              <TableCell align="right">Id</TableCell>
+              <TableCell align="right">Duration (months)</TableCell>
               <TableCell align="right">Location</TableCell>
+              <TableCell align="right">Wage ($/h)</TableCell>
               <TableCell align="right">App Deadline</TableCell>
             </TableRow>
           </TableHead>
@@ -58,8 +60,9 @@ export class JobList extends Component {
                   </Link>
                 </TableCell>
                 <TableCell align="right">{row.company}</TableCell>
-                <TableCell align="right">{row.id}</TableCell>
+                <TableCell align="right">{row.duration}</TableCell>
                 <TableCell align="right">{row.location}</TableCell>
+                <TableCell align="right">{row.wagePerHour}</TableCell>
                 <TableCell align="right">{row.applicationDeadline}</TableCell>
               </TableRow>
               //   </Link>
