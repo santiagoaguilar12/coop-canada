@@ -16,24 +16,21 @@ function App() {
   
   const [isLoggedIn, setIfLoggedIn] = useState(false);
   const [isOnLoginPage, setIsOnLoginPage] = useState(false);
-  // useEffect(() => {
-  // authRef.signInWithEmailAndPassword('test@gmail.com','test123').then((result => {
-  //   checkIfLogged()
-  //     }))
-    
-  // },[]);
+  useEffect(async () => {
+      async function checkIfLogged() {
+      if(await authRef.currentUser !== null) {
+         setIfLoggedIn(true) ;
+      } else {
+        setIfLoggedIn(false);
+      }
+    }
+    checkIfLogged()
+  },[]);
   const onLoginPage = () => {
     setIsOnLoginPage(true)
   }
   const notOnLoginPage = () => {
     setIsOnLoginPage(false)
-  }
-  const checkIfLogged = async () => {
-    if(await authRef.currentUser !== null) {
-       setIfLoggedIn(true) ;
-    } else {
-      setIfLoggedIn(false);
-    }
   }
   
   return (
