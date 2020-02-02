@@ -22,6 +22,13 @@ export class JobList extends Component {
     super(props);
   }
 
+  goToDetail() {
+    this.props.history.push({
+      pathname: "/job",
+      state: { test: true }
+    });
+  }
+
   render() {
     return (
       <TableContainer component={Paper}>
@@ -58,4 +65,4 @@ export class JobList extends Component {
   }
 }
 
-export default JobList;
+export default withRouter(JobList);
