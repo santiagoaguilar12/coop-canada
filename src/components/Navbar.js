@@ -169,47 +169,13 @@ export default function Navbar(props) {
            {!props.isOnLoginPage &&
             <AppBar position="static" className={classes.Navbar}>
                 <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                    >
-                        <MenuIcon />
-                    </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        Material-UI
+                        Co-Op Canada
           </Typography>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                       
-                        
-                       
                     {props.isLoggedIn &&
                         <>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
                         <IconButton
                             edge="end"
                             aria-label="account of current user"

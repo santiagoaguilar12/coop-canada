@@ -12,6 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import JobList from "./JobList";
 import Filter from "./Filter";
+import * as keyword_extractor from 'keyword-extractor'
 
 const jobs = [
   {
@@ -88,7 +89,7 @@ export class Jobs extends Component {
         jobKeyword: ""
       },
       test: "words",
-      filteredJobs: null
+      filteredJobs: [],
     };
   }
 
