@@ -6,17 +6,33 @@ import Login from "./components/Login"
 import Profile from "./components/Profile"
 import { Helmet } from "react-helmet";
 import Navbar from "./components/Navbar"
-import { authRef, dbRef } from "./components/Firebase"
+import { authRef } from "./components/Firebase"
+import { useState, useEffect } from 'react';
 function App() {
-  let isLoggedIn = false;
-  function checkIfLogged() {
-    if(authRef.currentUser !== null) {
-      isLoggedIn = true;
-    }
-
+  
+  
+  const [isLoggedIn, setIfLoggedIn] = useState(false);
+  const [isOnLoginPage, setIsOnLoginPage] = useState(false);
+  useEffect(() => {
+  authRef.signInWithEmailAndPassword('test@gmail.com','test123').then((result => {
     checkIfLogged()
+      }))
+    
+  },[]);
+  const onLoginPage = () => {
+    setIsOnLoginPage(true)
   }
-
+  const notOnLoginPage = () => {
+    setIsOnLoginPage(false)
+  }
+  const checkIfLogged = async () => {
+    if(await authRef.currentUser !== null) {
+       setIfLoggedIn(true) ;
+    } else {
+      setIfLoggedIn(false);
+    }
+  }
+  
   return (
     <div>
       <Helmet>
@@ -25,17 +41,19 @@ function App() {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Helmet>
-      <Navbar isLoggedIn = {isLoggedIn}></Navbar>
+      {!isOnLoginPage &&
+        <Navbar isLoggedIn = {isLoggedIn} isOnLoginPage = {isOnLoginPage}></Navbar>
+      }
       <Router className="App">
         <Switch>
-          <Route path="/login">
-            <Login />
+          <Route path="/login" >
+            <Login onLoginPage = {onLoginPage} />
           </Route>
           <Route path="/job">
             <div>job route</div>
           </Route>
           <Route path="/profile">
-            <Profile />
+            <Profile notOnLoginPage= {notOnLoginPage} />
           </Route>
           <Route path="/">
             <div>any other route route</div>

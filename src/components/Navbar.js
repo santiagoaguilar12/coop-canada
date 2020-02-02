@@ -79,6 +79,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Navbar(props) {
+    console.log(props)
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -163,7 +164,7 @@ export default function Navbar(props) {
 
     return (
         <div className={classes.grow}>
-            {props.isLoggedIn &&
+           {!props.isOnLoginPage &&
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -195,7 +196,7 @@ export default function Navbar(props) {
                        
                         
                        
-                     
+                    {props.isLoggedIn &&
                         <>
                         <IconButton aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="secondary">
@@ -218,7 +219,7 @@ export default function Navbar(props) {
                             <AccountCircle />
                         </IconButton>
                         </>
-                    //    }
+                       }
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton
@@ -233,10 +234,9 @@ export default function Navbar(props) {
                     </div>
                 </Toolbar>
             </AppBar>
-            }
-            {renderMobileMenu}
+           }
+           {renderMobileMenu}
             {renderMenu}
             </div>
-        
     );
 }
