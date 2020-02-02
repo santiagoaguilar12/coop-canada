@@ -10,7 +10,7 @@ import { authRef, dbRef } from "./components/Firebase"
 function App() {
   let isLoggedIn = false;
   function checkIfLogged() {
-    if(authRef.currentUser !== null) {
+    if (authRef.currentUser !== null) {
       isLoggedIn = true;
     }
 
@@ -25,7 +25,7 @@ function App() {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Helmet>
-      <Navbar isLoggedIn = {isLoggedIn}></Navbar>
+      <Navbar isLoggedIn={isLoggedIn}></Navbar>
       <Router className="App">
         <Switch>
           <Route path="/login">
@@ -35,7 +35,7 @@ function App() {
             <div>job route</div>
           </Route>
           <Route path="/profile">
-            <Profile />
+            <Profile firstName="Adam" lastName="Cooke" />
           </Route>
           <Route path="/">
             <div>any other route route</div>

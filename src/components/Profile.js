@@ -11,9 +11,9 @@ import Avatar from '@material-ui/core/Avatar';
 import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-
-
-
+import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
+import { dbRef, authRef } from './Firebase'
 export class Profile extends Component {
     static defaultProps = {
         firstName: "John",
@@ -41,13 +41,48 @@ export class Profile extends Component {
     };
     constructor(props) {
         super(props);
+        this.handleProgramChange = this.handleProgramChange.bind(this);
+        this.handleProgramEdit = this.handleProgramEdit.bind(this);
+        this.handleProgramEditEnter = this.handleProgramEditEnter.bind(this);
+        this.state = {
+            isProgramEditing: false,
+            program: this.props.program
+        };
     }
+
+    handleProgramChange(e) {
+        this.setState({ program: e.target.value })
+    }
+
+    handleProgramEdit(e) {
+        this.setState(st => ({ isProgramEditing: !st.isProgramEditing }));
+    }
+    handleProgramEditEnter(e) {
+        if (e.key === "Enter") {
+            this.setState(st => ({ isProgramEditing: !st.isProgramEditing }));
+        }
+    }
+
     render() {
+
+        let programDisplay;
+        if (this.state.isProgramEditing) {
+            programDisplay = <div>
+                <div><input value={this.state.program} onChange={this.handleProgramChange} onKeyDown={this.handleProgramEditEnter} /> - <span>{this.props.school}</span></div>
+                <CheckIcon onClick={this.handleProgramEdit} />
+            </div>
+        } else {
+            programDisplay = <div>
+                <div>{this.state.program} - <span>{this.props.school}</span></div>
+                <EditIcon onClick={this.handleProgramEdit} />
+            </div>
+        }
+
         return (
             <Container maxWidth="md">
                 <div className="Profile-Header">
                     <h1>{this.props.firstName} {this.props.lastName}</h1>
-                    <h5>{this.props.program} - <span>{this.props.school}</span></h5>
+                    {programDisplay}
                 </div>
                 <Grid spacing={3}>
                     <Grid className="Profile-InterviewList" xs={9}>
