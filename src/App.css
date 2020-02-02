@@ -49,3 +49,12 @@
 .paper {
   margin: 1.5rem !important;
 }
+.filter {
+  flex-basis: auto !important;
+}
+.margin {
+  margin-left: 10px;
+}
+.border-color {
+  border-top: #598B2C;
+}

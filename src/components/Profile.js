@@ -40,20 +40,18 @@ export class Profile extends Component {
     */
 
 
-    async componentDidMount(e) {
-        const test = await authRef.signInWithEmailAndPassword('cookesdummy@gmail.com', 'password')
+    async componentDidMount() {
         const email = await authRef.currentUser.email
-        console.log(email)
         const doc = await dbRef.collection("users").doc(email).get()
         const userData = doc.data();
         userData.applications = [];
 
-        userData.applicationKeys.forEach(async (key) => {
+        for (let i = 0; i < userData.applicationKeys.length; i++) {
+            const key = userData.applicationKeys[i];
             const application = await dbRef.collection("jobs").doc(key).get()
             const randomName = application.data()
-
             userData.applications.push(randomName);
-        });
+        }
 
         this.setState({
             applications: userData.applications,
@@ -123,7 +121,7 @@ export class Profile extends Component {
                             }
                         </List>
                     </Grid>
-                    <Grid className="Profile-Upload" xs={4}>
+                    <Grid className="Profile-Upload" xs={6}>
                         <h3>Your Uploads</h3>
                         <List>
                             <ListItem>

@@ -13,18 +13,8 @@ import { useState, useEffect } from "react";
 import SignUp from "./components/Sign-Up";
 function App() {
 
-  const [isLoggedIn, setIfLoggedIn] = useState(false);
+ 
   const [isOnLoginPage, setIsOnLoginPage] = useState(false);
-  useEffect(async () => {
-      async function checkIfLogged() {
-      if(await authRef.currentUser !== null) {
-         setIfLoggedIn(true) ;
-      } else {
-        setIfLoggedIn(false);
-      }
-    }
-    checkIfLogged()
-  },[]);
   const onLoginPage = () => {
     setIsOnLoginPage(true);
   };
@@ -44,7 +34,6 @@ function App() {
       <Router className="App">
         {!isOnLoginPage && (
           <Navbar
-            isLoggedIn={isLoggedIn}
             isOnLoginPage={isOnLoginPage}
           ></Navbar>
         )}

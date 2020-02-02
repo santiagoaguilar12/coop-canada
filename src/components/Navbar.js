@@ -16,6 +16,8 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { Link, withRouter } from "react-router-dom";
 import "../App.css";
+import { authRef } from "./Firebase";
+import { useState, useEffect } from "react";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -83,6 +85,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Navbar(props) {
+    const [isLoggedIn, setIfLoggedIn] = useState(false);
+    useEffect(() => {
+        async function checkIfLogged() {
+        if(await authRef.currentUser !== null) {
+           setIfLoggedIn(true) ;
+        } else {
+          setIfLoggedIn(false);
+        }
+      }
+      checkIfLogged()
+    },[]);
+    const loggedIn = isLoggedIn
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -102,6 +116,7 @@ export default function Navbar(props) {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+
 
   const handleMobileMenuOpen = event => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -186,7 +201,7 @@ export default function Navbar(props) {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              {props.isLoggedIn && (
+              {loggedIn && (
                 <>
                   <IconButton
                     aria-label="show 4 new mails"

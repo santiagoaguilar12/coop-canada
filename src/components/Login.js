@@ -60,6 +60,9 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2),
     color: "white",
     backgroundColor: "#598B2C"
+  },
+  fontColor: {
+    color: "#598B2C"
   }
 }));
 
@@ -84,6 +87,14 @@ export default function Login(props) {
   const handleChangeForm = name => event => {
     setValues({ ...values, [name]: event.target.value });
   }
+  const styles = theme => ({
+    cssOutlinedInput: {
+      '&$cssFocused $notchedOutline': {
+        borderColor: `#598B2C !important`,
+      }
+    },
+  });
+  
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -94,7 +105,7 @@ export default function Login(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Link to="/jobs" className="link-color">
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" className={classes.fontColor}>
               Sign in
             </Typography>
           </Link>
@@ -137,13 +148,8 @@ export default function Login(props) {
               Sign In
             </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                </Link>
-                </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/signup" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

@@ -9,6 +9,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Slider from "@material-ui/core/Slider";
 import TextField from "@material-ui/core/TextField";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -80,9 +81,16 @@ export class Filter extends Component {
             />
           </FormControl>
         </CardContent>
-      </Card>
+      </Card>      
     );
   }
 }
 
 export default Filter;
+
+
+
+// Be able to login and go to profile without resetting the user
+// Redirect
+// Csss
+// make sure it applies 

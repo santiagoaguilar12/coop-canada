@@ -23,6 +23,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import CheckIcon from "@material-ui/icons/Check";
 import { authRef, dbRef, storageRef } from "./Firebase";
 import { useHistory } from "react-router-dom";
+import Upload from './Upload'
 
 function Copyright() {
   return (
@@ -54,7 +55,8 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: "#598B2C"
+    backgroundColor: "#598B2C",
+    color: "white"
   }
 }));
 
@@ -75,7 +77,8 @@ export default function SignUp(props) {
         firstName: values.firstName,
         lastName: values.lastName,
         university: values.university,
-        program: values.program
+        program: values.program,
+        applicationKeys: []
       });
     history.push("/jobs");
   };
@@ -92,7 +95,7 @@ export default function SignUp(props) {
     setValues({ ...values, [name]: event.target.value });
   };
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="sm">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -177,26 +180,26 @@ export default function SignUp(props) {
                 id="program"
               />
             </Grid>
-            <List>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <ImageIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="Resume" />
-                <CloudUploadIcon />
-              </ListItem>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <WorkIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="Transcript" />
-                <CloudUploadIcon />
-              </ListItem>
-            </List>
+            {/* <List>
+                            <ListItem>
+                                <ListItemAvatar>
+                                    <Avatar>
+                                        <ImageIcon />
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary="Resume" secondary='Name of File - Date Submitted' />
+                                <Upload filePath="resumes" label="Resume" />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemAvatar>
+                                    <Avatar>
+                                        <WorkIcon />
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary="Transcript" secondary='Name of File - Date Submitted' />
+                                <Upload className="margin" filePath="transcripts" label="Transcript" />
+                            </ListItem>
+                        </List> */}
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -207,7 +210,6 @@ export default function SignUp(props) {
           <Button
             fullWidth
             variant="contained"
-            color="primary"
             className={classes.submit}
             onClick={signUp}
           >
@@ -215,7 +217,7 @@ export default function SignUp(props) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

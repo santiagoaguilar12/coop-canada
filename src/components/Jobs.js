@@ -302,7 +302,7 @@ export class Jobs extends Component {
     return (
       <div className="paper">
 <Grid container spacing={3}>
-        <Grid item xs={3}>
+        <Grid item xs={3} className="filter">
           <Filter
             toggleTest={this.toggleTest}
             test={this.state.test}
@@ -316,7 +316,7 @@ export class Jobs extends Component {
             handleKeywordChange={this.handleKeywordChange}
           />
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={10}>
           <JobList
             jobs={
               this.state.filteredJobs.length > 0

@@ -13,6 +13,7 @@ class Upload extends Component {
         isUploading: false,
         progress: 0,
     };
+    
     handleProgress = progress => this.setState({ progress });
     handleUploadError = error => {
         this.setState({ isUploading: false });
@@ -22,13 +23,14 @@ class Upload extends Component {
         console.log("Success");
 
     };
+    
 
     render() {
         return (
             <div>
                 <form>
                     {this.state.isUploading && <p>Progress: {this.state.progress}</p>}
-                    <label style={{ backgroundColor: 'steelblue', color: 'white', padding: 10, borderRadius: 4, cursor: 'pointer' }}>
+                    <label style={{ backgroundColor: '#598B2C', color: 'white', padding: 12, borderRadius: 4, cursor: 'pointer'  }}>
                         {this.props.label}
                         <FileUploader
                             accept="application/pdf"
@@ -39,7 +41,7 @@ class Upload extends Component {
                             onUploadSuccess={this.handleUploadSuccess}
                             onProgress={this.handleProgress}
                         />
-                        <CloudUploadIcon />
+                        <CloudUploadIcon className="margin" />
                     </label>
 
                 </form>
