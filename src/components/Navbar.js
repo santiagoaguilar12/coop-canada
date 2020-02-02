@@ -14,7 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-
+import { Link, withRouter } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -182,16 +182,9 @@ export default function Navbar(props) {
           </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
-                            <SearchIcon />
+                           
                         </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
+                        
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
@@ -201,15 +194,12 @@ export default function Navbar(props) {
                     {props.isLoggedIn &&
                         <>
                         <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
+                            
+                        
                         </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
+                        
+                            
+                        <Link>
                         <IconButton
                             edge="end"
                             aria-label="account of current user"
@@ -220,19 +210,22 @@ export default function Navbar(props) {
                         >
                             <AccountCircle />
                         </IconButton>
+                        </Link>
+                        
                         </>
                        }
                     </div>
                     <div className={classes.sectionMobile}>
-                        <IconButton
+                     <Link>
+                       <IconButton
                             aria-label="show more"
                             aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
+                            aria-haspopup="false"
+                            //onClick={handleMobileMenuOpen}
                             color="inherit"
-                        >
-                            <MoreIcon />
+                         >
                         </IconButton>
+                        </Link>
                     </div>
                 </Toolbar>
             </AppBar>
