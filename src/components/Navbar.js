@@ -56,6 +56,9 @@ const useStyles = makeStyles(theme => ({
     inputRoot: {
         color: 'inherit',
     },
+    Navbar: {
+        backgroundColor: "#598B2C"
+    },
     inputInput: {
         padding: theme.spacing(1, 1, 1, 7),
         transition: theme.transitions.create('width'),
@@ -78,7 +81,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -118,6 +121,7 @@ export default function Navbar() {
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );
+    
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
@@ -162,7 +166,8 @@ export default function Navbar() {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static">
+           {!props.isOnLoginPage &&
+            <AppBar position="static" className={classes.Navbar}>
                 <Toolbar>
                     <IconButton
                         edge="start"
@@ -190,6 +195,11 @@ export default function Navbar() {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
+                       
+                        
+                       
+                    {props.isLoggedIn &&
+                        <>
                         <IconButton aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <MailIcon />
@@ -210,6 +220,8 @@ export default function Navbar() {
                         >
                             <AccountCircle />
                         </IconButton>
+                        </>
+                       }
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton
@@ -224,8 +236,9 @@ export default function Navbar() {
                     </div>
                 </Toolbar>
             </AppBar>
-            {renderMobileMenu}
+           }
+           {renderMobileMenu}
             {renderMenu}
-        </div>
+            </div>
     );
 }

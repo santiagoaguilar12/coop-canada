@@ -1,14 +1,40 @@
 import React from "react";
 import logo from "./logo.svg";
 import { Link, BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import "./App.css";
 import Login from "./components/Login";
 import { Helmet } from "react-helmet";
 import Navbar from "./components/Navbar";
 import Jobs from "./components/Jobs";
 import JobDetail from "./components/JobDetail";
-
+import { authRef } from "./components/Firebase"
+import { useState, useEffect } from 'react';
+import SignUp from './components/Sign-Up';
 function App() {
+  
+  const [isLoggedIn, setIfLoggedIn] = useState(false);
+  const [isOnLoginPage, setIsOnLoginPage] = useState(false);
+  useEffect(() => {
+  authRef.signInWithEmailAndPassword('test@gmail.com','test123').then((result => {
+    checkIfLogged()
+      }))
+    
+  },[]);
+  const onLoginPage = () => {
+    setIsOnLoginPage(true)
+  }
+  const notOnLoginPage = () => {
+    setIsOnLoginPage(false)
+  }
+  const checkIfLogged = async () => {
+    if(await authRef.currentUser !== null) {
+       setIfLoggedIn(true) ;
+    } else {
+      setIfLoggedIn(false);
+    }
+  }
+  
   return (
     <div>
       <Helmet>
@@ -17,12 +43,14 @@ function App() {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Helmet>
-      <Navbar></Navbar>
+      {!isOnLoginPage &&
+        <Navbar isLoggedIn = {isLoggedIn} isOnLoginPage = {isOnLoginPage}></Navbar>
+      }
+
       <Router className="App">
-        <Link to="/login">Go to login</Link>
         <Switch>
-          <Route path="/login">
-            <Login />
+          <Route path="/login" >
+            <Login onLoginPage = {onLoginPage} />
           </Route>
           <Route path="/jobs">
             <Jobs />
@@ -31,9 +59,12 @@ function App() {
             <JobDetail />
           </Route>
           <Route path="/profile">
-            <div>profile route</div>
+            <Profile firstName="Adam" lastName="Cooke" notOnLoginPage= {notOnLoginPage} />
           </Route>
-          <Route path="/">
+          <Route path="/signup">
+            <SignUp onLoginPage = {onLoginPage}/>
+          </Route>
+          <Route path="/" >
             <div>any other route route</div>
           </Route>
         </Switch>
