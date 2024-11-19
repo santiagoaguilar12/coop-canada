@@ -8,7 +8,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
-    "firebase": "^7.8.0",
+    "firebase": "^10.9.0",
     "keyword-extractor": "0.0.18",
     "lodash": "^4.17.15",
     "react": "^16.12.0",
